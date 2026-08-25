@@ -35,10 +35,19 @@ export const APP_CONSTANTS = {
   SIDEBAR_STORAGE_KEY: "sidebar-expanded",
   DASHBOARD_WEEKLY_CHART_STORAGE_KEY: "dashboard-weekly-chart-tab",
   DASHBOARD_RECENT_CARD_STORAGE_KEY: "dashboard-recent-card-tab",
+  DASHBOARD_JOBS_ACTIVITY_STORAGE_KEY: "dashboard-jobs-activity-tab",
   LAST_JOB_LOCATION_STORAGE_KEY: "last-job-location",
   LAST_JOB_SOURCE_STORAGE_KEY: "last-job-source",
   JOBS_VIEW_MODE_STORAGE_KEY: "jobs-view-mode",
+  RESUME_PREVIEW_FIT_STORAGE_KEY: "resume-preview-fit",
+  RESUME_EXPORT_SETTINGS_STORAGE_KEY: "resume-export-settings",
+  COVER_LETTER_EXPORT_SETTINGS_STORAGE_KEY: "cover-letter-export-settings",
   SIDEBAR_DOM_ID: "app-sidebar",
+
+  // Update check: the upstream repo and how long a GitHub release lookup is
+  // cached. A day is plenty — releases are rare and the check is unauthenticated.
+  GITHUB_REPO: "Gsync/jobsync",
+  UPDATE_CHECK_REVALIDATE_SECONDS: 86_400,
   // Paired so the rail width and its matching content offset can't drift.
   SIDEBAR_WIDTH: {
     expanded: { rail: "w-56", contentOffset: "sm:pl-56" },

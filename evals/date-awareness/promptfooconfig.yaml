@@ -1,0 +1,33 @@
+description: >-
+  Date-awareness check. Bare vs todayContext()-injected, same question, same
+  two providers as the rest of evals/.
+
+providers:
+  - id: openai:chat:deepseek-v4-flash
+    label: deepseek-v4-flash
+    config:
+      apiBaseUrl: https://api.deepseek.com
+      apiKeyEnvar: DEEPSEEK_API_KEY
+      showThinking: false
+      temperature: 0
+      max_tokens: 50
+
+  - id: openai:chat:qwen3.5:9b
+    label: ollama-qwen3.5-9b
+    config:
+      apiBaseUrl: http://localhost:11434/v1
+      apiKey: ollama
+      temperature: 0
+      max_tokens: 50
+      passthrough:
+        reasoning_effort: "none"
+
+prompts:
+  - file://./prompt-bare.ts
+  - file://./prompt-injected.ts
+
+tests:
+  - description: "today's date, direct question"
+    assert:
+      - type: javascript
+        value: file://./assertions.ts:assertCorrectDate

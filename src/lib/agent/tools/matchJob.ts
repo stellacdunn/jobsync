@@ -21,6 +21,7 @@ import {
 } from "@/lib/agent/nestedGeneration";
 import type { AgentMatchJobResult } from "@/models/agent.model";
 import type { JobMatchData } from "@/models/ai.schemas";
+import { todayContext } from "@/lib/ai/prompts/today";
 
 type MatchJobContext = {
   userId: string;
@@ -87,7 +88,7 @@ export function buildMatchJobTool(ctx: MatchJobContext) {
 
       const generation = await runNestedGeneration({
         model: ctx.model,
-        system: JOB_MATCH_SYSTEM_PROMPT,
+        system: `${JOB_MATCH_SYSTEM_PROMPT}\n\n${todayContext()}`,
         prompt: buildJobMatchPrompt(
           resumePre.data.normalizedText,
           jobPre.data.normalizedText,

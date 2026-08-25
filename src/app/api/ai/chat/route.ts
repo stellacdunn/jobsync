@@ -35,6 +35,7 @@ import { getUserSettings } from "@/actions/userSettings.actions";
 import { saveChatConversation } from "@/actions/agentChat.actions";
 import { AiProvider } from "@/models/ai.model";
 import { addJobSettled, AGENT_CHAT_TERMINAL_TOOLS } from "@/models/agent.model";
+import { todayContext } from "@/lib/ai/prompts/today";
 
 // The one terminal tool whose stop condition is not "was it called" — see
 // addJobSettled.
@@ -183,7 +184,7 @@ export const POST = async (req: NextRequest) => {
     execute: ({ writer }) => {
       const result = streamText({
         model,
-        system: AGENT_CHAT_SYSTEM_PROMPT,
+        system: `${AGENT_CHAT_SYSTEM_PROMPT}\n\n${todayContext()}`,
         messages: modelMessages,
         tools: buildAgentTools({
           userId,

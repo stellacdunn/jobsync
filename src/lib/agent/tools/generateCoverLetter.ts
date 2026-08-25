@@ -21,6 +21,7 @@ import {
   type NestedGenerationGuard,
 } from "@/lib/agent/nestedGeneration";
 import type { AgentCoverLetterResult } from "@/models/agent.model";
+import { todayContext } from "@/lib/ai/prompts/today";
 
 type CoverLetterContext = {
   userId: string;
@@ -97,7 +98,7 @@ export function buildGenerateCoverLetterTool(ctx: CoverLetterContext) {
 
       const generation = await runNestedGeneration({
         model: ctx.model,
-        system: COVER_LETTER_SYSTEM_PROMPT,
+        system: `${COVER_LETTER_SYSTEM_PROMPT}\n\n${todayContext()}`,
         prompt: buildCoverLetterPrompt(
           resumePre.data.normalizedText,
           jobPre.data.normalizedText,

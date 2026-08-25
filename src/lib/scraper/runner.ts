@@ -42,6 +42,7 @@ import {
 import { resolveApiKey } from "@/lib/api-key-resolver";
 import { PROVIDER_VERIFIERS } from "@/lib/ai/provider-registry.server";
 import { getOllamaBaseUrl } from "@/actions/apiKey.actions";
+import { todayContext } from "../ai/prompts/today";
 
 const MAX_JOBS_PER_RUN = APP_CONSTANTS.MAX_JOBS_PER_RUN;
 
@@ -1150,7 +1151,7 @@ ${removeHtmlTags(job.description)}
 
     const result = await generateText({
       model,
-      system: AUTOMATION_JOB_MATCH_SYSTEM_PROMPT,
+      system: `${AUTOMATION_JOB_MATCH_SYSTEM_PROMPT}\n\n${todayContext()}`,
       prompt: buildAutomationJobMatchPrompt(resumeText, jobText),
       temperature: 0.3,
       abortSignal: signal,

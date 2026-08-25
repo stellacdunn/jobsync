@@ -19,6 +19,7 @@ import {
 } from "@/lib/agent/nestedGeneration";
 import type { AgentReviewResumeResult } from "@/models/agent.model";
 import type { ResumeReviewData } from "@/models/ai.schemas";
+import { todayContext } from "@/lib/ai/prompts/today";
 
 type ReviewResumeContext = {
   userId: string;
@@ -66,7 +67,7 @@ export function buildReviewResumeTool(ctx: ReviewResumeContext) {
 
       const generation = await runNestedGeneration({
         model: ctx.model,
-        system: RESUME_REVIEW_SYSTEM_PROMPT,
+        system: `${RESUME_REVIEW_SYSTEM_PROMPT}\n\n${todayContext()}`,
         prompt: buildResumeReviewPrompt(pre.data.normalizedText),
         temperature: TEMPERATURES.FEEDBACK,
         numCtx: APP_CONSTANTS.AI_OLLAMA_NUM_CTX,
